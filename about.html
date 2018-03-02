@@ -1,9 +1,30 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <script src="https://cdn.firebase.com/v0/firebase.js"></script>
+</head>
 <body>
-
-<h1>Head</h1>
-<p>paragraph.</p>
-
+  <ul id="chat-list">
+  </ul>
+  <input type="text" id="msg"/>
+  <input type="button" id="send" value="Send"/>
+  <script>
+    var ref = new Firebase("https://anant.firebaseio.com/chat").limit(5);
+    ref.on("child_added", function(snap) {
+      var chatItem = document.createElement("li");
+      chatItem.innerHTML = JSON.stringify(snap.val());
+      chatItem.id = snap.name();
+      document.getElementById("chat-list").appendChild(chatItem);
+    });
+    ref.on("child_removed", function(snap) {
+      var item = document.getElementById(snap.name());
+      item.parentNode.removeChild(item);
+    });
+    document.getElementById("send").onclick = function() {
+      console.log("test");
+      var msg = document.getElementById("msg").value;
+      ref.ref().push(msg);
+    };
+  </script>
 </body>
 </html>
