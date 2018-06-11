@@ -3,8 +3,4 @@
 	src: url(Fonts/FiraSansExtraCondensed-Black.ttf);
 	font-weight: normal;
 }
-body.main {
-  background-image: url("../../images/lmao.png");
-  background-size: auto 100%;
-  background-attachment: fixed;
-}
+
